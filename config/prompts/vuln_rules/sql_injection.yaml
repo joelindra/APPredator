@@ -1,0 +1,20 @@
+name: "SQL Injection"
+description: "Detects potential SQL Injection vulnerabilities in database queries."
+prompt: |
+  Analyze the following Java code snippet for SQL Injection vulnerabilities.
+  Specifically, look for cases where user input is concatenated directly into SQL queries executed via `rawQuery`, `execSQL`, or similar methods.
+
+  Code:
+  ```java
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a SQL Injection vulnerability in this code? If yes, explain how to exploit it and provide a remediated code snippet using parameterized queries.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["sql", "database", "injection"]
+detection_pattern: "(rawQuery|execSQL)\\s*\\("

@@ -1,0 +1,33 @@
+name: "PendingIntent Hijacking"
+description: "Detects usage of Mutable PendingIntents that can be hijacked by malicious apps to execute unauthorized actions."
+prompt: |
+  Analyze the following Java/Smali code for PendingIntent Hijacking vulnerabilities.
+  
+  Vulnerability Pattern:
+  - Usage of `PendingIntent.getActivity`, `getService`, or `getBroadcast`.
+  - The `flags` argument uses `FLAG_MUTABLE` (0x02000000) OR implies mutability by NOT specifying `FLAG_IMMUTABLE` (0x04000000).
+  - IMPORTANT: In modern Android, checking for `FLAG_MUTABLE` or absence of `FLAG_IMMUTABLE` is critical.
+  
+  Code to Analyze:
+  ```java
+  {code_snippet}
+  ```
+  
+  Context:
+  - File Path: {file_path}
+  
+  Determine if the PendingIntent is created insecurely. 
+  1. Is `FLAG_IMMUTABLE` missing?
+  2. Is `FLAG_MUTABLE` explicitly used without proper internal checks?
+  
+  If the PendingIntent is mutable and passed to an external or unknown component, it is VULNERABLE.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+keywords:
+  - "PendingIntent"
+  - "FLAG_MUTABLE"
+  - "getActivity"
+  - "getService"
+detection_pattern: "PendingIntent\\.(getActivity|getService|getBroadcast).*FLAG_MUTABLE"
+tags: ["intents", "privilege_escalation", "pending_intent"]

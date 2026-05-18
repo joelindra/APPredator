@@ -1,0 +1,34 @@
+name: "Unsafe Reflection"
+description: "Detects Unsafe Reflection where attacker-controlled strings are used to instantiate classes or invoke methods."
+prompt: |
+  Analyze the following Java/Smali code for Unsafe Reflection vulnerabilities.
+  
+  Vulnerability Pattern:
+  - Usage of `Class.forName(className)` where `className` is derived from external input (Intent extra, etc.).
+  - Usage of `Method.invoke(obj, args)` where method name or args are attacker-controlled.
+  - Usage of `ClassLoader.loadClass`.
+  - Pattern: `String cls = intent.getStringExtra("class"); Class.forName(cls);`
+  
+  Code to Analyze:
+  ```java
+  {code_snippet}
+  ```
+  
+  Context:
+  - File Path: {file_path}
+  
+  Determine if:
+  1. Reflection APIs are used (`Class.forName`, `Method.invoke`).
+  2. The input string comes from an untrusted source (Intent, Parameters).
+  
+  If yes, report VULNERABLE.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+keywords:
+  - "Class.forName"
+  - "Method.invoke"
+  - "ClassLoader"
+  - "getStringExtra"
+tags: ["reflection", "rce", "code_execution"]
+detection_pattern: "(?i)(Class\\.forName|Method\\.invoke|ClassLoader\\.loadClass)"

@@ -1,0 +1,29 @@
+name: "APPredator"
+description: "Automated AI-powered security analysis for Android applications."
+inputs:
+  apk-path:
+    description: "Path to the APK file to scan (relative to repository root)."
+    required: true
+  provider:
+    description: "LLM Provider (ollama, gemini, groq, openai, anthropic)."
+    required: false
+    default: "gemini"
+  model:
+    description: "Specific model name to use (e.g., gemini-1.5-pro, gpt-4)."
+    required: false
+  api-key:
+    description: "API Key for the chosen provider."
+    required: false
+  rules:
+    description: "Comma-separated list of rules to enable/disable (e.g., 'sql_injection:true, webview_xss:false')."
+    required: false
+  config-path:
+    description: "Path to a custom configuration YAML file (relative to repository root)."
+    required: false
+runs:
+  using: "docker"
+  image: "Dockerfile"
+  entrypoint: "/app/scripts/ci/entrypoint.sh"
+branding:
+  icon: "shield"
+  color: "green"

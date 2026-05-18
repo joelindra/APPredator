@@ -1,0 +1,32 @@
+name: "Insecure Deserialization"
+description: "Detects Insecure Deserialization of untrusted data leading to Remote Code Execution (RCE)."
+prompt: |
+  Analyze the following Java/Smali code for Insecure Deserialization vulnerabilities.
+  
+  Vulnerability Pattern:
+  - Usage of `ObjectInputStream.readObject()`.
+  - The input stream is derived from an untrusted source, such as `intent.getSerializableExtra()` or data from the network/disk.
+  - If the class being deserialized is not validated (e.g., look-ahead deserialization), it can lead to RCE.
+  
+  Code to Analyze:
+  ```java
+  {code_snippet}
+  ```
+  
+  Context:
+  - File Path: {file_path}
+  
+  Determine if:
+  1. `readObject()` is called.
+  2. The source of the object is potentially tainted (Intent extra, etc.).
+  
+  If yes, report VULNERABLE.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+keywords:
+  - "ObjectInputStream"
+  - "readObject"
+  - "getSerializableExtra"
+detection_pattern: "ObjectInputStream.*\\.readObject"
+tags: ["deserialization", "rce", "serializable"]

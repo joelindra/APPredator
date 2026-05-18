@@ -1,0 +1,21 @@
+name: "Path Traversal"
+description: "Detects path traversal vulnerabilities in ContentProviders."
+prompt: |
+  Analyze the following smali code snippet for path traversal vulnerabilities.
+  Specifically, look for the use of `ContentProvider` and check if the `openFile` method is properly implemented to prevent path traversal attacks.
+  A vulnerability exists if a malicious user can access files outside of the intended directory.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential path traversal vulnerability in this code? If yes, explain how it could be exploited and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["storage", "contentprovider", "path-traversal"]
+detection_pattern: "openFile"

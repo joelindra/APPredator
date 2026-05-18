@@ -1,0 +1,25 @@
+name: "GraphQL Injection"
+description: "Detects potential GraphQL injection vulnerabilities."
+prompt: |
+  Analyze the following smali code snippet for potential GraphQL injection vulnerabilities.
+  Specifically, look for GraphQL queries that are constructed by concatenating user input.
+  This could allow an attacker to manipulate the query and access unauthorized data.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential GraphQL injection vulnerability in this code? If yes, explain how it could be exploited and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["graphql", "injection", "api"]
+keywords:
+  - "graphql"
+  - "query"
+  - "GraphQL"
+detection_pattern: "(?i)(graphql.*(query|mutation)|query.*=.*[\"']|mutation.*=.*[\"']|execute.*query)"

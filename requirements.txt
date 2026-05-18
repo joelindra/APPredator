@@ -1,0 +1,12 @@
+typer
+loguru
+pyyaml
+pydantic
+langchain
+requests
+ruamel.yaml
+fastapi
+uvicorn[standard]
+python-multipart
+jinja2
+pytest

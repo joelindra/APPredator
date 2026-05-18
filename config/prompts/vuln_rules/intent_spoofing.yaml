@@ -1,0 +1,21 @@
+name: "Intent Spoofing"
+description: "Detects exported components that are not properly protected and could be vulnerable to intent spoofing."
+prompt: |
+  Analyze the following AndroidManifest.xml snippet for vulnerabilities related to intent spoofing.
+  Specifically, look for exported activities, services, or receivers that do not have a permission attribute or have a permission that is not strong enough.
+  An attacker could send an intent to these components and perform unauthorized actions.
+
+  AndroidManifest.xml:
+  ```xml
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there an Intent Spoofing vulnerability in this manifest? If yes, explain the risk and provide a recommendation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["manifest", "intent", "spoofing"]
+detection_pattern: "android:exported=[\"']true[\"']"

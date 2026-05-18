@@ -1,0 +1,46 @@
+name: "ZipSlip Path Traversal"
+description: "Detects Zip Path Traversal (ZipSlip) vulnerabilities where archives are unzipped without validating entry paths."
+prompt: |
+  Analyze the following Java/Smali code for ZipSlip Path Traversal vulnerabilities.
+  
+  Vulnerability Pattern:
+  - Iteration over `ZipInputStream` or `ZipFile.entries()`.
+  - Usage of `ZipEntry.getName()` to construct a destination `File` object.
+  - CRITICAL: Missing check for `getCanonicalPath()` to ensure the file is still within the target directory.
+  - Vulnerable Code Example:
+    ```java
+    File target = new File(destinationDir, zipEntry.getName()); // VULNERABLE
+    InputStream in = zipFile.getInputStream(zipEntry);
+    // write to target...
+    ```
+  - Secure Code Example:
+    ```java
+    File target = new File(destinationDir, zipEntry.getName());
+    if (!target.getCanonicalPath().startsWith(destinationDir.getCanonicalPath())) {{
+        throw new SecurityException("ZipSlip detected!");
+    }}
+    ```
+  
+  Code to Analyze:
+  ```java
+  {code_snippet}
+  ```
+  
+  Context:
+  - File Path: {file_path}
+  
+  Determine if the unzipping logic is vulnerable:
+  1. Does the code unzip files?
+  2. Is there a canonical path check before data is written?
+  
+  If the check is MISSING, it is VULNERABLE.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+keywords:
+  - "ZipInputStream"
+  - "ZipEntry"
+  - "getCanonicalPath"
+  - "ZipFile"
+detection_pattern: "ZipEntry.*\\.getName"
+tags: ["zip_slip", "path_traversal", "file_overwrite"]

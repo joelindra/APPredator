@@ -1,0 +1,21 @@
+name: "Biometric Authentication Bypass"
+description: "Detects potential weaknesses in the implementation of biometric authentication."
+prompt: |
+  Analyze the following smali code snippet for potential biometric authentication bypass vulnerabilities.
+  Specifically, look for implementations of `BiometricPrompt` and check if the `onAuthenticationSucceeded` callback is properly secured.
+  A vulnerability exists if the success callback can be easily triggered without actual biometric authentication, for example, by manipulating the application's control flow.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential biometric authentication bypass vulnerability in this code? If yes, explain how it could be exploited and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["biometric", "authentication", "bypass"]
+detection_pattern: "BiometricPrompt"

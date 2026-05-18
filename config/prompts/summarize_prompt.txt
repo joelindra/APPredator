@@ -1,0 +1,18 @@
+Summarize the following Smali class in **one English sentence** (max ~40 words). Be factual: name the main behaviour (API calls, data flows, IPC), not generic boilerplate.
+
+Tie the sentence to **OWASP MASVS** where relevant by weaving in short cues (no bullet list), for example:
+- storage: files, SharedPreferences, SQLite/Room, caches
+- crypto: Cipher, MessageDigest, KeyStore, hardcoded keys/IVs
+- auth: login, tokens, sessions, AccountManager, BiometricPrompt
+- network: HttpURLConnection, OkHttp, WebView loads, sockets
+- platform: Intents, exported surfaces, ContentProvider, BroadcastReceiver
+- code: reflection, dynamic code, JNI/native
+- privacy: PII, location, contacts, camera, clipboard
+
+If the class is trivial (constants only, empty stubs), say that explicitly instead of inventing risk.
+
+Code path: {file_path}
+
+```smali
+{code_snippet}
+```

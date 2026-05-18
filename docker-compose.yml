@@ -1,0 +1,14 @@
+services:
+  apppredator:
+    build:
+      context: .
+      dockerfile: Dockerfile.web
+    ports:
+      - "8080:8080"
+    environment:
+      - APPREDATOR_CORS_ORIGINS=http://localhost:5173,http://127.0.0.1:5173
+    volumes:
+      - ./output:/app/output
+      - ./config:/app/config
+      - ./web_data:/app/web_data
+    working_dir: /app

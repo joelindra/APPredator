@@ -1,0 +1,32 @@
+name: "Fragment Injection"
+description: "Detects Fragment Injection vulnerabilities in exported PreferenceActivities that fail to implement isValidFragment properly."
+prompt: |
+  Analyze the following Java/Smali code for Fragment Injection vulnerabilities.
+  
+  Vulnerability Pattern:
+  - The Class extends `PreferenceActivity`.
+  - The Activity is `exported=true` (check Manifest context if available, otherwise assume risky if unknown).
+  - The method `isValidFragment` is MISSING or simply returns `true` without validation.
+  - This allows attackers to load arbitrary fragments via `Intent.EXTRA_SHOW_FRAGMENT` (`:android:show_fragment`).
+  
+  Code to Analyze:
+  ```java
+  {code_snippet}
+  ```
+  
+  Context:
+  - File Path: {file_path}
+  
+  Determine if the Activity is vulnerable:
+  1. Does it extend `PreferenceActivity`?
+  2. Is `isValidFragment` missing or insecure (always true)?
+  
+  If yes, report it as VULNERABLE.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+keywords:
+  - "PreferenceActivity"
+  - "isValidFragment"
+detection_pattern: ".super Landroid/preference/PreferenceActivity;"
+tags: ["fragment_injection", "rce", "preference_activity"]

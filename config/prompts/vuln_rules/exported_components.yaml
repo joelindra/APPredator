@@ -1,0 +1,20 @@
+name: "Exported Components without Permissions"
+description: "Detects exported components that are not protected by a permission."
+prompt: |
+  Analyze the following AndroidManifest.xml snippet for exported components (activities, services, receivers, providers) that are not protected by a permission.
+  An exported component without a permission can be accessed by any application on the device, which could lead to unauthorized access or denial of service.
+
+  AndroidManifest.xml:
+  ```xml
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Are there any exported components without a permission in this manifest? If yes, list them and explain the risk.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["manifest", "exported", "permission"]
+detection_pattern: "android:exported=[\"']true[\"']"

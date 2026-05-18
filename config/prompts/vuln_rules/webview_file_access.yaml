@@ -1,0 +1,29 @@
+name: "WebView File Access"
+description: "Detects unsafe WebView file access configurations enabling local file theft or cookie stealing."
+prompt: |
+  Analyze the following Java/Smali code for WebView File Access vulnerabilities.
+  
+  Vulnerability Pattern:
+  - Explicitly enabling file access: `setAllowFileAccess(true)`.
+  - Enabling file access from file URLs: `setAllowFileAccessFromFileURLs(true)`.
+  - Enabling universal access: `setAllowUniversalAccessFromFileURLs(true)`.
+  - Risk: If an attacker can load a local file (e.g. via an exposed Component or XSS in a local file), they can read other local files or databases (Cookies).
+  
+  Code to Analyze:
+  ```java
+  {code_snippet}
+  ```
+  
+  Context:
+  - File Path: {file_path}
+  
+  Determine if ANY of these dangerous settings are explicitly set to TRUE.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+keywords:
+  - "setAllowFileAccess"
+  - "setAllowFileAccessFromFileURLs"
+  - "setAllowUniversalAccessFromFileURLs"
+tags: ["webview", "file_access", "cookie_theft"]
+detection_pattern: "setAllow(File|Universal)Access(FromFileURLs)?\\s*\\(?\\s*true"

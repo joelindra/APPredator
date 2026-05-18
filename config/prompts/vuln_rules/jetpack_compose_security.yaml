@@ -1,0 +1,21 @@
+name: "Jetpack Compose Security"
+description: "Detects potential security issues in Jetpack Compose code."
+prompt: |
+  Analyze the following smali code snippet for security best practices in Jetpack Compose.
+  Specifically, look for Composable functions that might be vulnerable to screen capture.
+  Check if `FLAG_SECURE` is used to prevent screen content from being captured.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential security issue in this Jetpack Compose code? If yes, explain the risk and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["compose", "ui", "security"]
+detection_pattern: "@Composable"

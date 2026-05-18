@@ -1,0 +1,61 @@
+# ==============================================================================
+# Stage 1: Build the React Frontend
+# ==============================================================================
+FROM node:20-alpine AS frontend-builder
+
+WORKDIR /app/web/frontend
+
+# Copy package descriptors first to leverage caching
+COPY web/frontend/package*.json ./
+
+# Install frontend dependencies
+RUN npm ci
+
+# Copy the rest of the frontend source code
+COPY web/frontend/ ./
+
+# Build the production single-page application (SPA) bundle
+RUN npm run build
+
+# ==============================================================================
+# Stage 2: Final Production Web Server and Analysis Runtime
+# ==============================================================================
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install system utilities and JDK (needed by JADX & Apktool)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    openjdk-21-jre-headless \
+    wget \
+    unzip \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Apktool
+ENV APKTOOL_VERSION=2.12.1
+RUN wget -q "https://bitbucket.org/iBotPeaches/apktool/downloads/apktool_${APKTOOL_VERSION}.jar" -O /usr/local/bin/apktool.jar \
+    && echo '#!/bin/bash\njava -jar /usr/local/bin/apktool.jar "$@"' > /usr/local/bin/apktool \
+    && chmod +x /usr/local/bin/apktool
+
+# Install JADX
+ENV JADX_VERSION=1.5.5
+RUN wget -q "https://github.com/skylot/jadx/releases/download/v${JADX_VERSION}/jadx-${JADX_VERSION}.zip" -O /opt/jadx.zip \
+    && unzip -q /opt/jadx.zip -d /opt/jadx \
+    && rm /opt/jadx.zip \
+    && ln -s /opt/jadx/bin/jadx /usr/local/bin/jadx
+
+# Copy and install python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy all application code
+COPY . .
+
+# Copy compiled static assets directly from the frontend builder stage
+COPY --from=frontend-builder /app/web/frontend/dist /app/web/frontend/dist
+
+# Expose production port
+EXPOSE 8080
+
+# Run FastAPI production server
+ENTRYPOINT ["uvicorn", "web.backend.main:app", "--host", "0.0.0.0", "--port", "8080"]

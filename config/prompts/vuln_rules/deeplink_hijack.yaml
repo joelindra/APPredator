@@ -1,0 +1,22 @@
+name: "Deep Link Hijacking & Open Redirect"
+description: "Detects potential deep link hijacking and open redirect vulnerabilities."
+prompt: |
+  Analyze the following AndroidManifest.xml snippet for vulnerabilities related to deep link hijacking and open redirects.
+  Look for <intent-filter> tags with an <action android:name="android.intent.action.VIEW" /> and a <data> tag with a scheme.
+  If a host is not specified or a wildcard is used, the deep link could be hijacked by a malicious application.
+  Also, check if the activity that handles the deep link properly validates the URL to prevent open redirects.
+
+  AndroidManifest.xml:
+  ```xml
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential for deep link hijacking or open redirect in this manifest? If yes, explain the risk and provide a recommendation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["manifest", "deeplink", "hijacking", "redirect"]
+detection_pattern: "android:autoVerify|android:scheme"

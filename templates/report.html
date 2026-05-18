@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>APPredator — Report</title>
+  <style>
+    body { font-family: system-ui, sans-serif; margin: 1.5rem; background: #0f1419; color: #e6edf3; }
+    h1 { font-size: 1.25rem; }
+    .muted { color: #8b949e; font-size: 0.9rem; }
+    .card { border: 1px solid #30363d; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; background: #161b22; }
+    .vuln { border-left: 4px solid #f85149; }
+    .ok { border-left: 4px solid #3fb950; }
+    .suppressed { opacity: 0.65; border-left-color: #8b949e; }
+    pre { white-space: pre-wrap; word-break: break-word; font-size: 0.8rem; background: #0d1117; padding: 0.75rem; border-radius: 6px; overflow-x: auto; }
+    a { color: #58a6ff; }
+  </style>
+</head>
+<body>
+  <h1>APPredator report</h1>
+  <p class="muted">Generated for manual review. Verify all findings.</p>
+
+  {% if app_summary %}
+  <div class="card">
+    <h2>App summary</h2>
+    <pre>{{ app_summary | e }}</pre>
+  </div>
+  {% endif %}
+
+  {% if attack_surface_map %}
+  <div class="card">
+    <h2>Attack surface</h2>
+    <pre>{{ attack_surface_map | e }}</pre>
+  </div>
+  {% endif %}
+
+  {% if diff_summary %}
+  <div class="card">
+    <h2>Diff summary</h2>
+    <div>APK version: {{ diff_summary.apk_version }}</div>
+    <div>Previous: {{ diff_summary.previous_apk_version or "none" }}</div>
+    <div>New findings: {{ diff_summary.new_count or 0 }}</div>
+    <div>Resolved findings: {{ diff_summary.resolved_count or 0 }}</div>
+    <div>Unchanged findings: {{ diff_summary.unchanged_count or 0 }}</div>
+  </div>
+  {% endif %}
+
+  <h2>Findings ({{ results | length }})</h2>
+  {% for r in results %}
+  <div class="card {% if r.status == 'Vulnerable' %}vuln{% else %}ok{% endif %}{% if r.dlh_suppressed %} suppressed{% endif %}">
+    <strong>{{ r.vulnerability }}</strong>
+    {% if r.dlh_suppressed %}<span class="muted"> — suppressed (baseline)</span>{% endif %}
+    <div class="muted">{{ r.file }}</div>
+    <div>Status: {{ r.status }}</div>
+    {% if r.result %}
+      {% if r.result.severity %}<div>Severity: {{ r.result.severity }}</div>{% endif %}
+      {% if r.result.confidence %}<div>Confidence: {{ r.result.confidence }}</div>{% endif %}
+      {% if r.result.triage_level %}<div>Triage: {{ r.result.triage_level }} — {{ r.result.triage_reason }}</div>{% endif %}
+      {% if r.result.owasp_mobile_top10 %}<div>OWASP Mobile Top 10: {{ r.result.owasp_mobile_top10 }}</div>{% endif %}
+      {% if r.result.description %}<pre>{{ r.result.description | e }}</pre>{% endif %}
+      {% if r.result.evidence %}<h3>Evidence</h3><pre>{{ r.result.evidence | e }}</pre>{% endif %}
+      {% if r.result.remediation_summary %}<h3>Remediation</h3><pre>{{ r.result.remediation_summary | e }}</pre>{% endif %}
+      {% if r.result.fix_suggestion_template %}<h3>Fix template</h3><pre>{{ r.result.fix_suggestion_template | e }}</pre>{% endif %}
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {% if exploit_validation %}
+  <h2>Exploit Validation ({{ exploit_validation | length }})</h2>
+  {% for x in exploit_validation %}
+  <div class="card">
+    <strong>{{ x.rule_name }}</strong>
+    <div class="muted">{{ x.file_path }}</div>
+    <div>Status: {{ x.validation_status }}</div>
+    <pre>{{ x.validation_reason | e }}</pre>
+  </div>
+  {% endfor %}
+  {% endif %}
+</body>
+</html>

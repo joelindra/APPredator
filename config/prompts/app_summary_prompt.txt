@@ -1,0 +1,26 @@
+You are summarizing a decompiled Android application for security reviewers.
+
+Use the **AndroidManifest.xml** and the **per-file code summaries** below. Produce a **structured plain-text** report (not JSON) with these sections in order:
+
+1. **Application purpose** — one short paragraph: what the app does for the user (domain).
+2. **Package name** — on its own line, exactly in this form so tooling can parse it:
+   `Package name: <applicationId>`
+   (replace with the real applicationId from the manifest.)
+3. **Security-relevant capabilities** — bullet list: auth methods, crypto use, WebView/deep links, backup/fullBackupContent, network/APIs, file/storage, notable SDKs.
+4. **Sensitive data** — bullet list: what classes of data appear handled or stored.
+5. **Notable permissions** — bullet list of dangerous/special permissions that stand out and why they matter here.
+6. **Scan focus suggestions** — 2–4 bullets: where a reviewer should spend time based on the summaries.
+
+Rules:
+- Ground every bullet in the manifest or summaries; if unknown, write "Unclear from provided context" instead of guessing.
+- Prefer precision over marketing language.
+
+AndroidManifest.xml:
+```xml
+{manifest}
+```
+
+Code summaries:
+```
+{summaries}
+```

@@ -1,0 +1,62 @@
+name: Android Security Scan (Build + Audit)
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  security-audit:
+    name: Build & Security Scan
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      # 1. Clone the Source Code
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      # 2. Setup Java Environment (Required for Android Build)
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: "17"
+          distribution: "temurin"
+          cache: gradle
+
+      # 3. Grant Permissions to Gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
+
+      # 4. Build the APK (Debug Variant)
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug --no-daemon
+
+      # 5. Verify APK exists
+      - name: Verify APK File
+        run: |
+          ls -lah app/build/outputs/apk/debug/
+          test -f app/build/outputs/apk/debug/app-debug.apk && echo "✓ APK found" || { echo "✗ APK not found"; exit 1; }
+
+      # Publish this repo as a GitHub Action, then point `uses` at your org/repo@version.
+      # (Previously referenced a legacy action name; replace YOUR_GITHUB_ORG after you publish.)
+      - name: APPredator scan
+        uses: YOUR_GITHUB_ORG/apppredator@v1
+        with:
+          apk-path: app/build/outputs/apk/debug/app-debug.apk
+          provider: gemini
+          model: gemini-2.0-flash # Recommended model
+          api-key: ${{ secrets.GEMINI_KEY }}
+          # Customize rules as needed:
+          rules: sql_injection:true, webview_xss:false, hardcoded_secrets:true, insecure_deserialization:true
+
+      # 7. Upload Security Report
+      - name: Upload Report
+        uses: actions/upload-artifact@v4
+        if: always() # Ensure report is uploaded even if vulnerabilities are found
+        with:
+          name: security-report
+          path: appredator-report.json
+          retention-days: 14

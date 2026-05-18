@@ -1,0 +1,26 @@
+Build an **attack surface map** for this Android app for security testers.
+
+Inputs: **AndroidManifest.xml** and **code summaries** from static analysis.
+
+Output **structured plain text** (not JSON) with these top-level sections:
+
+1. **Executive overview** — 2–4 sentences: main entry points (UI, push, background) and trust boundaries.
+2. **Exported & cross-app exposure** — bullets: activities/services/receivers/providers with `android:exported` true or implied; intent-filters; dangerous URI authorities; TaskAffinity/launchMode quirks if visible.
+3. **Deep links & WebView** — bullets: schemes/hosts/pathPrefixes, JavaScript bridges, file access, mixed content, if reflected in manifest or summaries.
+4. **Network & server trust** — bullets: cleartext, custom trust managers, pinning hints, high-risk endpoints (only if evidenced).
+5. **Data at rest & in transit** — bullets: storage, backups, logs, clipboard, caches (only if evidenced).
+6. **Package identifier** — repeat the main `applicationId` on a line: `Package name: <id>` (from manifest) so downstream tools can extract it.
+
+Rules:
+- Each bullet should cite **what** is exposed and **how an attacker might interact** (intent, URI, network, filesystem) without fictional endpoints.
+- If the manifest or summaries lack detail for a subsection, state "Not evidenced in provided inputs" rather than inventing components.
+
+AndroidManifest.xml:
+```xml
+{manifest}
+```
+
+Code summaries:
+```
+{summaries}
+```

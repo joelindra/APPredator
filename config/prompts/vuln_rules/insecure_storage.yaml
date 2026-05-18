@@ -1,0 +1,21 @@
+name: "Insecure Storage"
+description: "Detects insecure storage of sensitive data in SharedPreferences and world-readable files."
+prompt: |
+  Analyze the following smali code snippet for insecure storage vulnerabilities.
+  Specifically, look for the use of `SharedPreferences` with `MODE_WORLD_READABLE` and the creation of world-readable files.
+  A vulnerability exists if sensitive data is stored in a way that allows other applications to access it.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential insecure storage vulnerability in this code? If yes, explain how it could be exploited and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["storage", "sharedpreferences", "world-readable"]
+detection_pattern: "(?i)(SharedPreferences|getSharedPreferences|openFileOutput|MODE_WORLD_READABLE|MODE_WORLD_WRITABLE)"

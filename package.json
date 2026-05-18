@@ -1,0 +1,15 @@
+{
+  "name": "apppredator",
+  "private": true,
+  "description": "APPredator — root scripts: API + Vite UI (proxy /api -> API port; 8080 default, 8765 on Windows; APPREDATOR_API_PORT). API hot reload: APPREDATOR_API_RELOAD=1.",
+  "scripts": {
+    "api": "node scripts/start-api.mjs",
+    "dev:web": "npm run dev --prefix web/frontend",
+    "dev": "concurrently -k -n api,web -c cyan,green \"node scripts/start-api.mjs\" \"npm run dev:web\"",
+    "build": "npm run build --prefix web/frontend",
+    "install:web": "npm install --prefix web/frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

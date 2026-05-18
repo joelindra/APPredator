@@ -1,0 +1,132 @@
+{
+  "sql_injection": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: Untrusted input must not be concatenated into SQL; use bound parameters / Room / safe builders.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  },
+  "webview_xss": {
+    "masvs_id": "MASVS-PLATFORM-2",
+    "description": "MASVS-PLATFORM-2: WebViews must not expose sensitive data or bridges to untrusted origins without hardening.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-2/"
+  },
+  "insecure_webview": {
+    "masvs_id": "MASVS-PLATFORM-2",
+    "description": "MASVS-PLATFORM-2: Dangerous WebSettings (file/universal access, mixed content) violate secure WebView use.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-2/"
+  },
+  "hardcoded_secrets": {
+    "masvs_id": "MASVS-STORAGE-2",
+    "description": "MASVS-STORAGE-2: Secrets must not be embedded in source; use Keystore, remote attestation, or server-held keys.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-STORAGE-2/"
+  },
+  "insecure_storage": {
+    "masvs_id": "MASVS-STORAGE-1",
+    "description": "MASVS-STORAGE-1: Sensitive data at rest requires platform-backed encryption and least-privilege file modes.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-STORAGE-1/"
+  },
+  "insecure_file_permissions": {
+    "masvs_id": "MASVS-STORAGE-1",
+    "description": "MASVS-STORAGE-1: World-readable/writable files or legacy modes break confidentiality of stored data.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-STORAGE-1/"
+  },
+  "insecure_random_number_generation": {
+    "masvs_id": "MASVS-CRYPTO-1",
+    "description": "MASVS-CRYPTO-1: Security-sensitive randomness must use SecureRandom (or platform crypto), not java.util.Random.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CRYPTO-1/"
+  },
+  "biometric_bypass": {
+    "masvs_id": "MASVS-AUTH-2",
+    "description": "MASVS-AUTH-2: Local authentication flows must use BiometricPrompt/crypto objects correctly without trivial bypass.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-AUTH-2/"
+  },
+  "intent_spoofing": {
+    "masvs_id": "MASVS-PLATFORM-1",
+    "description": "MASVS-PLATFORM-1: IPC surfaces must enforce permissions, caller checks, and explicit intents where required.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-1/"
+  },
+  "exported_components": {
+    "masvs_id": "MASVS-PLATFORM-1",
+    "description": "MASVS-PLATFORM-1: Exported components need explicit protection (signature permissions, exported=false, intent validation).",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-1/"
+  },
+  "webview_deeplink": {
+    "masvs_id": "MASVS-PLATFORM-2",
+    "description": "MASVS-PLATFORM-2: Deep links that drive WebView loads require URL allow-lists and safe WebView configuration.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-2/"
+  },
+  "deeplink_hijack": {
+    "masvs_id": "MASVS-PLATFORM-1",
+    "description": "MASVS-PLATFORM-1: Intent filters and autoVerify/host scoping must prevent link hijack and unsafe VIEW handling.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-1/"
+  },
+  "path_traversal": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: File paths from untrusted input must be canonicalized and confined to intended roots.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  },
+  "jetpack_compose_security": {
+    "masvs_id": "MASVS-PLATFORM-3",
+    "description": "MASVS-PLATFORM-3: UI layers must avoid leaking sensitive pixels (FLAG_SECURE) and debug-only behaviour in release.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-3/"
+  },
+  "graphql_injection": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: GraphQL documents built from untrusted strings enable injection and schema abuse.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  },
+  "pending_intent_hijacking": {
+    "masvs_id": "MASVS-PLATFORM-1",
+    "description": "MASVS-PLATFORM-1: PendingIntents must be immutable unless a tightly scoped mutable intent is unavoidable and safe.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-1/"
+  },
+  "fragment_injection": {
+    "masvs_id": "MASVS-PLATFORM-1",
+    "description": "MASVS-PLATFORM-1: PreferenceActivity / fragment plumbing must validate fragment class names against an allow-list.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-1/"
+  },
+  "zip_slip": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: Archive extraction must validate each ZipEntry path against a trusted base directory (ZipSlip).",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  },
+  "deeplink_logic_bypass": {
+    "masvs_id": "MASVS-PLATFORM-1",
+    "description": "MASVS-PLATFORM-1: Deep-link parameters must not drive auth, redirects, or WebView loads without server-side/session checks.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-1/"
+  },
+  "unsafe_reflection": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: Reflection and class loading from untrusted strings are high-risk dynamic code paths.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  },
+  "webview_file_access": {
+    "masvs_id": "MASVS-PLATFORM-2",
+    "description": "MASVS-PLATFORM-2: File URL access from WebView expands XSS/local file read impact; disable unless strictly required.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-2/"
+  },
+  "insecure_deserialization": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: Deserializing attacker-controlled object graphs enables gadget chains and RCE.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  },
+  "strandhogg": {
+    "masvs_id": "MASVS-PLATFORM-3",
+    "description": "MASVS-PLATFORM-3: Task affinity and launchMode combinations can enable task hijacking / overlay attacks.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-PLATFORM-3/"
+  },
+  "hardcoded_secrets_xml": {
+    "masvs_id": "MASVS-STORAGE-2",
+    "description": "MASVS-STORAGE-2: Resource XML must not ship recoverable secrets; treat APK contents as public.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-STORAGE-2/"
+  },
+  "library_vulnerability": {
+    "masvs_id": "MASVS-CODE-2",
+    "description": "MASVS-CODE-2: Third-party code must not undermine app integrity (droppers, hidden JNI, surveillance APIs).",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-2/"
+  },
+  "universal_logic_flaw": {
+    "masvs_id": "MASVS-CODE-4",
+    "description": "MASVS-CODE-4: Business and IPC logic must validate trust boundaries, serialization, and attacker-controlled branches.",
+    "reference": "https://mas.owasp.org/MASVS/controls/MASVS-CODE-4/"
+  }
+}

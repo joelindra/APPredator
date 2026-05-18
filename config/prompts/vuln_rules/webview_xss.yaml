@@ -1,0 +1,24 @@
+name: "WebView XSS"
+description: "Detects potential Cross-Site Scripting (XSS) vulnerabilities in WebViews."
+prompt: |
+  Analyze this Java/Smali snippet for **WebView XSS** and related script injection risk.
+
+  Checklist (evidence-based only):
+  - JavaScript enabled while loading remote or attacker-controlled URLs (`loadUrl`, `loadDataWithBaseURL`, `evaluateJavascript`).
+  - `addJavascriptInterface` exposed to content that is not same-origin / not fully trusted.
+  - `WebChromeClient` / `shouldOverrideUrlLoading` forwarding untrusted URLs into the WebView.
+  - File or mixed-content settings that widen impact if HTML/JS is injected.
+
+  Code:
+  ```java
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Prefer `is_vulnerable` false with low severity when the WebView only loads first-party HTTPS with no bridge to untrusted script. Put mitigations in `recommendation`.
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["webview", "xss", "javascript"]
+detection_pattern: "setJavaScriptEnabled\\(true\\)|addJavascriptInterface"

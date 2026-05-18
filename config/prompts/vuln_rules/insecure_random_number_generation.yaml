@@ -1,0 +1,21 @@
+name: "Insecure Random Number Generation"
+description: "Detects the use of insecure random number generators."
+prompt: |
+  Analyze the following smali code snippet for the use of insecure random number generators.
+  Specifically, look for the use of `Ljava/util/Random;`. This class is not cryptographically secure and should not be used for security-sensitive applications.
+  Instead, `Ljava/security/SecureRandom;` should be used.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there an insecure random number generation vulnerability in this code? If yes, explain the risk and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["crypto", "random"]
+detection_pattern: "(Ljava/util/Random;|java\\.util\\.Random|new Random\\()"

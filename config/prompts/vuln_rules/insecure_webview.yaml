@@ -1,0 +1,21 @@
+name: "Insecure WebView Configuration"
+description: "Detects insecure WebView configurations, such as the use of addJavascriptInterface and file access."
+prompt: |
+  Analyze the following smali code snippet for insecure WebView configurations.
+  Specifically, look for the use of `addJavascriptInterface` and settings that allow file access from file URLs (`setAllowFileAccessFromFileURLs`) or universal access from file URLs (`setAllowUniversalAccessFromFileURLs`).
+  A vulnerability exists if a malicious script can be executed through the WebView, potentially leading to sensitive data leakage or remote code execution.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there a potential insecure WebView configuration in this code? If yes, explain how it could be exploited and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["webview", "javascriptinterface", "fileaccess"]
+detection_pattern: "addJavascriptInterface|setAllow(File|Universal)AccessFromFileURLs\\(true\\)"

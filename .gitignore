@@ -1,0 +1,49 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+.env
+
+# Distribution / Packaging
+dist/
+build/
+*.egg-info/
+
+# Unit Test / Coverage
+.pytest_cache/
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Application Specific
+output/
+*.apk
+*.log
+banner.txt
+
+# Mac/Linux
+.DS_Store
+.idea/
+.vscode/
+
+# Config & Secrets (Crucial to prevent git leaks)
+config/settings.yaml
+config/profiles/*.yaml
+.env
+.env.*
+
+# Node.js dependencies
+node_modules/
+web/frontend/node_modules/
+
+# Local databases and runtime state
+web_data/
+

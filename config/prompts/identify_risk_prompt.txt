@@ -1,0 +1,21 @@
+You triage **per-file summaries** from an Android static scan. Decide whether this file is worth deep rule analysis next.
+
+The summary is for file: {file_path}
+
+### Decision criteria — answer **YES** only if the summary suggests **any** of:
+- Sensitive data handling, authentication/authorization, tokens, or PII
+- Cryptography, key material, integrity checks, or obfuscation/evasion
+- Network clients, WebView, deep links, or server trust
+- IPC: Intents, ContentProvider, BroadcastReceiver, exported-like behaviour
+- File I/O, databases, backups, or world-readable storage patterns
+- Dynamic code, reflection, JNI, loading dex/jar from storage
+- Any OWASP MASVS theme (STORAGE, CRYPTO, AUTH, NETWORK, PLATFORM, CODE, PRIVACY)
+
+Answer **NO** if the summary is purely UI/layout, resources, build noise, or clearly non-security-related with no attack surface.
+
+### Required output format (machine-checked)
+First line **exactly** one of: `YES` or `NO` (uppercase, no punctuation).
+Optional: after a blank line, one short sentence of justification.
+
+Summary to classify:
+{code_snippet}

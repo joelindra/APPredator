@@ -1,0 +1,21 @@
+name: "Insecure File Permissions"
+description: "Detects files created with world-readable or world-writable permissions."
+prompt: |
+  Analyze the following smali code snippet for insecure file permissions.
+  Specifically, look for `openFileOutput` calls where the mode is `MODE_WORLD_READABLE` or `MODE_WORLD_WRITABLE`.
+  These modes are deprecated and can lead to security vulnerabilities.
+
+  Code:
+  ```smali
+  {code_snippet}
+  ```
+
+  Context:
+  - File Path: {file_path}
+
+  Is there an insecure file permission vulnerability in this code? If yes, explain the risk and suggest a remediation.
+
+
+  Response format: Return exactly one JSON object as defined in the system instructions (all keys required). No markdown code fences; no text outside JSON.
+tags: ["storage", "permission", "file"]
+detection_pattern: "MODE_WORLD_READABLE|MODE_WORLD_WRITABLE"

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "apppredator"
+description = "APPredator: Android APK static analysis with LLM-assisted security rules."
+requires-python = ">=3.11"
+license = { text = "MIT" }
+dynamic = ["version"]
+
+dependencies = [
+    "typer",
+    "loguru",
+    "pyyaml",
+    "pydantic",
+    "langchain",
+    "requests",
+    "ruamel.yaml",
+    "fastapi",
+    "uvicorn[standard]",
+    "python-multipart",
+    "jinja2",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+apppredator = "apppredator.cli:main"
+
+[tool.setuptools.dynamic]
+version = { attr = "apppredator.__version__" }
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["apppredator*", "core*", "modules*", "web*"]
+
+[tool.setuptools.package-data]
+web = ["frontend/dist/**/*", "frontend/dist/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

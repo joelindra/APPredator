@@ -1,0 +1,68 @@
+# APPredator — root settings (optional override: config/profiles/<name>.yaml)
+# RAG / scanner text: config/prompts and config/knowledge_base
+
+analysis:
+  decompiler_mode: hybrid # hybrid | apktool | jadx
+  filter_mode: static_only # static_only | llm_only | hybrid
+  generate_attack_surface_map: true
+  generate_exploit: true
+  scan_libraries: true
+  use_cross_reference_context: true
+
+apktool:
+  path: tools/apktool/apktool-nopause.bat # relative to repo root (Windows .bat)
+
+jadx:
+  path: tools/jadx/bin/jadx.bat
+  max_heap: 10240m
+
+ubersigner:
+  jar_path: tools/signer/ubersigner.jar
+
+# LLM Configurations (Use generic placeholders)
+llm:
+  provider: gemini # ollama | gemini | groq | openai | anthropic | openrouter | deepseek
+  model: llama3:8b
+  ollama_url: http://localhost:11434
+  api_key: GEMINI_API_KEY
+  gemini_model: gemini-2.0-flash
+  groq_api_key: GROQ_API_KEY
+  groq_model: llama-3.1-8b-instant
+  openai_api_key: OPENAI_API_KEY
+  openai_model: gpt-4-turbo
+  anthropic_api_key: ANTHROPIC_API_KEY
+  anthropic_model: claude-sonnet-4-20250514
+  openrouter_api_key: OPENROUTER_API_KEY
+  openrouter_model: google/gemini-2.5-flash
+  deepseek_api_key: DEEPSEEK_API_KEY
+  deepseek_model: deepseek-v4-flash
+  deepseek_base_url:
+  deepseek_reasoning_effort:
+  deepseek_thinking_enabled:
+
+rules:
+  biometric_bypass: true
+  deeplink_hijack: true
+  deeplink_logic_bypass: true
+  exported_components: true
+  fragment_injection: true
+  graphql_injection: true
+  hardcoded_secrets: true
+  hardcoded_secrets_xml: true
+  insecure_deserialization: true
+  insecure_file_permissions: true
+  insecure_random_number_generation: true
+  insecure_storage: true
+  insecure_webview: true
+  intent_spoofing: true
+  jetpack_compose_security: true
+  path_traversal: true
+  pending_intent_hijacking: true
+  sql_injection: true
+  strandhogg: true
+  universal_logic_flaw: true
+  unsafe_reflection: true
+  webview_deeplink: true
+  webview_file_access: true
+  webview_xss: true
+  zip_slip: true
