@@ -141,6 +141,10 @@ To avoid setting up Java, JADX, or Python packages directly on your host operati
 # Compile dependencies and launch persistent services
 docker compose up -d
 ```
+
+```bash
+docker compose logs -f
+```
 The multi-stage build will build the Vite React app, install system packages, compile the Python runtime, and host the dashboard.
 * **Web UI Access**: Visit `http://localhost:8080/ui/` in your browser.
 * **Configurations**: Persisted locally inside `./config/settings.yaml`.
