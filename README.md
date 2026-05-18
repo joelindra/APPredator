@@ -1,7 +1,7 @@
-# 🐊 APPredator
+# APPredator
 
 <p align="center">
-  <img src="logo/apppredator.png" alt="APPredator Logo" width="200" style="border-radius: 16px; box-shadow: 0 10px 40px rgba(0,0,0,0.6);" />
+<img width="1601" height="1014" alt="image" src="https://github.com/user-attachments/assets/5f8f3f4e-b053-45d4-a695-db4021fbc8f5" />
 </p>
 
 <p align="center">
@@ -103,7 +103,7 @@ APPredator matches static signatures across an expansive array of built-in secur
 Clone this repository and install the package locally:
 
 ```bash
-git clone https://github.com/yourusername/APPredator.git
+git clone https://github.com/joelindra/APPredator.git
 cd APPredator
 pip install -e .
 ```
